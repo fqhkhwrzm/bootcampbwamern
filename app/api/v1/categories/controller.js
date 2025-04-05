@@ -63,9 +63,22 @@ const update = async(req, res, next) => {
     }
 }
 
+const destroy = async(req, res, next) => {
+    try {
+        const { id } = req.params;
+        const result = await Categories.findByIdAndDelete(id);
+        res.status(200).json({
+            data: result,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
 module.exports = {
     index,
     find,
     create, 
     update,
+    destroy,
 }
