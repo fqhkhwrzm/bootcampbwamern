@@ -24,14 +24,42 @@ const index = async(req, res, next) => {
 
 const find = async(req, res, next) => {
     try {
-        const {id} = req.params;
-        const result = await Categories.findOne({_id: id});
+        const { id } = req.params;
 
-        req.status(200).json({
+        const result = await Categories.findOne({ _id: id });
+
+        if (!result) {
+            return res.status(404).json({ message: 'Id Category tidak ditemukan' });
+        }
+        
+        res.status(200).json({
             data: result,
-        })
+        });
     } catch (err) {
-        next(err)
+        next(err);
+    }
+};
+
+const update = async(req, res, next) => {
+    try {
+        // kita cek dulu ID mana yang mau di update
+        const {id} = req.params;
+        const {name} = req.body;
+
+        const checkingCategories = await Categories.findOne({ _id: id });
+
+        if (!checkingCategories) {
+            return res.status(404).json({ message: 'Id Categories Tidak Ditemukan'});
+        }
+
+        // untuk update, ambil nama
+        checkingCategories.name = name;
+        await checkingCategories.save();
+        res.status(200).json({
+            data: checkingCategories,
+        });
+    } catch (err) {
+        next(err);
     }
 }
 
@@ -39,4 +67,5 @@ module.exports = {
     index,
     find,
     create, 
+    update,
 }
