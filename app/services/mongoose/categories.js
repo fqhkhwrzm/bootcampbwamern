@@ -32,4 +32,30 @@ const getOneCategories = async(req) => {
     return result;
 }
 
-module.exports = {getAllCategories, createCategories};
+const updateCategories = async(req) => {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    // cari categories dengan field name dan id selain dari yang dikirim dari params
+    const check = await Categories.findOne({
+        name,
+        _id: { $ne: id }, //$ne dia bakal cari disemua categories kecuali di id itu
+    });
+
+    // apabila check true/data categories sudah ada maka kita tampilkan error bad request
+    if (check) throw new BadRequestError('Kategori nama duplikat');
+
+    // kalau setelah dicek aman tidak ada duplikat, maka data diupdate
+    const result = await Categories.findOneAndUpdate(
+        {_id: id},
+        {name},
+        {new: true, runValidators: true}
+    );
+
+    // jika hasil result false / null (id salah) maka akan menampilkan error 'tidak ada kategori dengan id'
+    if (!result) throw new NotFoundError(`Tidak ada kategori dengan id: ${id}`);
+
+    return result;
+}
+
+module.exports = {getAllCategories, createCategories, getOneCategories, updateCategories};
