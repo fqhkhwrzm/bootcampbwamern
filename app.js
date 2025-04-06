@@ -9,6 +9,10 @@ const app = express();
 const categorisRouter = require('./app/api/v1/categories/router');
 const v1 = '/api/v1/cms';
 
+// Inisiasi router middleware
+const notFoundMiddleware = require('./app/middlewares/not-found');
+const handlerErrorMiddleware = require('./app/middlewares/handler-error');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -23,5 +27,8 @@ app.get('/', (req, res) => {
 });
 
 app.use(v1, categorisRouter);
+// Pakai middlewarenya diatas
+app.use(notFoundMiddleware);
+app.use(handlerErrorMiddleware);
 
 module.exports = app;
