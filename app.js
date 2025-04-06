@@ -6,7 +6,7 @@ const logger = require('morgan');
 const app = express();
 
 // router
-const categorisRouter = require('./app/api/v1/categories/router');
+const categoriesRouter = require('./app/api/v1/categories/router');
 const v1 = '/api/v1/cms';
 
 // Inisiasi router middleware
@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use(v1, categorisRouter);
-// Pakai middlewarenya diatas
+app.use(v1, categoriesRouter);
+// Pakai middlewarenya diatas, pastiin dibawah router atas ini
 app.use(notFoundMiddleware);
 app.use(handlerErrorMiddleware);
 
