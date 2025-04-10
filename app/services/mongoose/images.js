@@ -1,4 +1,5 @@
 const Images = require('../../api/v1/images/model');
+const { NotFoundError } = require('../../errors');
 
 const createImages = async (req) => { // kirim requestnya
     // kita cek dulu ada nggak yang request filenya
@@ -13,4 +14,14 @@ const createImages = async (req) => { // kirim requestnya
     return result;
 };
 
-module.exports = { createImages };
+// menerima 1 parameter, yaitu id (ada di async(id))
+const checkingImage = async (id) => {
+    const result = await Images.findOne({ _id: id });
+    console.log(result);
+
+    if (!result) throw new NotFoundError(`Tidak ada gambar dengan id: ${id}`);
+
+    return result;
+}
+
+module.exports = { createImages, checkingImage };
