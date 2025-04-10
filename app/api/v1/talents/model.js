@@ -9,7 +9,7 @@ let talentSchema = Schema(
         }, 
         role: {
             type: String,
-            default: '-',
+            default: '-', // kalau user ga mau kasih role, gpp
         },
         // Untuk membuat relasi pada mongodb, kita perlu membuat types ObjectId
         image: {

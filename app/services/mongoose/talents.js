@@ -18,7 +18,7 @@ const getAllTalents = async (req) => {
 
     // kemudian baru ambil datanya
     const result = await Talents.find(condition)
-    // populate untuk nampilin semua datanya, tapi kalau kita spesifik, kaya dibawah ini
+    // populate untuk nampilin semua datanya kalau relasi, tapi kalau kita spesifik, kaya dibawah ini
     .populate({
         // kita path dulu, path berdsar referensi dari field image yang ada di talent
         path: 'image',
