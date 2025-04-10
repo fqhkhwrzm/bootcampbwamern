@@ -8,8 +8,9 @@ const getAllTalents = async (req) => {
     // saat kita get all talents, otomatis bakal ngirim keyword / filter pencarian berdasar name
     const { keyword } = req.query;
 
-    // conditional itu kosong
-    let condition = {};
+    // conditional itu kosong, ini buat ngecek, semua objek yang mau kita filter kita masukin ke opsional
+    // tujuannya biar ga ke filter
+    let condition = {}; // secara umum berfungsi untuk menampung semua data yang mau kita filter
 
     if (keyword) {
         // filter berdasar name, regexnya sesuai keyword, ada options i untuk manipulasi stringnya, hruf besar kecil dianggap sama (bawaan mongoose_)
