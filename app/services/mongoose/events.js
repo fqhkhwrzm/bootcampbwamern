@@ -9,7 +9,7 @@ const getAllEvents = async (req) => {
     let condition = {};
 
     if (keyword) {
-        condition = { ...condition, title: { $regex: keyword, $options: i } };
+        condition = { ...condition, title: { $regex: keyword, $options: 'i' } };
     }
 
     if (category) {
