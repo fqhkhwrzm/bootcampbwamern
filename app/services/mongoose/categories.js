@@ -19,7 +19,7 @@ const createCategories = async(req) => {
     const result = await Categories.create({ name });
 
     return result;
-}
+};
 
 const getOneCategories = async(req) => {
     const { id } = req.params;
@@ -30,7 +30,7 @@ const getOneCategories = async(req) => {
     if (!result) throw new NotFoundError(`Tidak ada kategori dengan id: ${id}`);
 
     return result;
-}
+};
 
 const updateCategories = async(req) => {
     const { id } = req.params;
@@ -56,7 +56,7 @@ const updateCategories = async(req) => {
     if (!result) throw new NotFoundError(`Tidak ada kategori dengan id: ${id}`);
 
     return result;
-}
+};
 
 const deleteCategories = async(req) => {
     const { id } = req.params;
@@ -69,6 +69,14 @@ const deleteCategories = async(req) => {
     await result.deleteOne();
 
     return result;
-}
+};
 
-module.exports = {getAllCategories, createCategories, getOneCategories, updateCategories, deleteCategories};
+const checkingCategories = async (id) => {
+    const result = await Categories.findOne({ _id: id });
+
+    if (!result) throw new NotFoundError(`Tidak ada kategori dengan id ${id}`);
+
+    return result;
+};
+
+module.exports = {getAllCategories, createCategories, getOneCategories, updateCategories, deleteCategories, checkingCategories};
