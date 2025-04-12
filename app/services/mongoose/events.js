@@ -93,7 +93,7 @@ const getOneEvents = async (req) => {
         populate: { path: 'image', select: '_id name' },
     });
 
-    if (!result) throw new NotFoundError(`Tidak ada pembicara dengan id: ${id}`);
+    if (!result) throw new NotFoundError(`Tidak ada acara dengan id: ${id}`);
 
     return result;
 };
@@ -118,6 +118,13 @@ const updateEvents = async (req) => {
     await checkingImage(image);
     await checkingCategories(category);
     await checkingTalents(talent);
+    
+    // cari event berdasarkan field id
+    const checkEvent = await Events.findOne({
+        _id: id,
+    });
+
+    if (!checkEvent) throw new NotFoundError(`Tidak ada event dengan id: ${id}`);
 
     // cari events dengan field name dan id selain yang dikirim dari params
     const check = await Events.findOne({
@@ -125,7 +132,7 @@ const updateEvents = async (req) => {
         _id: { $ne: id },
     });
 
-    if (check) throw new BadRequestError('Judul event sudah ada');
+    if (check) throw new BadRequestError('Judul acara sudah terdaftar');
 
     const result = await Events.findOneAndUpdate(
         { _id: id},
@@ -145,7 +152,7 @@ const updateEvents = async (req) => {
         { new: true, runValidators: true}
     );
 
-    if (!result) throw new NotFoundError(`Tidak ada event dengan id: ${id}`);
+    return result;
 };
 
 const deleteEvents = async (req) => {
@@ -155,7 +162,7 @@ const deleteEvents = async (req) => {
         _id: id,
     });
 
-    if (!result) throw new NotFoundError(`Tidak ada pembicara dengan id: ${id}`);
+    if (!result) throw new NotFoundError(`Tidak ada acara dengan id: ${id}`);
 
     await result.deleteOne();
 

@@ -36,7 +36,7 @@ const find = async (req, res, next) => {
     try {
         const result = await getOneEvents(req);
 
-        res.status(StatusCodes).json({
+        res.status(StatusCodes.OK).json({
             data: result,
         });
     } catch (err) {
