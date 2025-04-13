@@ -56,7 +56,7 @@ const EventSchema = new mongoose.Schema({
         default: 'Draft',
     },
     tickets: {
-        type: [ticketCategoriesSchema], // karena tiket bisa banyak, ada tiket 1,2,dst, maka bentuknya array
+        type: [ticketCategoriesSchema], // karena tiket bisa banyak, ada tiket 1,2,dst, makenya list
         required: true,
     },
     image: {
