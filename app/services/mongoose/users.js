@@ -15,7 +15,7 @@ const createOrganizer = async(req) => {
         email,
         name,
         password,
-        organizer: result.organizer,
+        organizer: result._id,
         role,
     });
 
