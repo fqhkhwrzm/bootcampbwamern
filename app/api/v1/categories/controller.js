@@ -23,8 +23,8 @@ const index = async(req, res, next) => {
         res.status(StatusCodes.OK).json({
             data: result,
         });
-    } catch (err) {
-        next(err);
+    } catch (error) {
+        next(error);
     }
 }
 

@@ -40,6 +40,8 @@ const authorizeRoles = (...roles) => {
     return (req, res, next) => {
         // fungsi dr includes ini bawaan dari js untuk ngefilter, dia ngecek ada nggak role yang dikirim
         if (!roles.includes(req.user.role)) {
+            // debug untuk cek user role dan allowrd role
+            // console.log('User role:', req.user.role, 'Allowed roles:', roles);
             throw new UnauthorizedError('Unauthorized to acces this route')
         }
         next();

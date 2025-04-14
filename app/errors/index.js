@@ -10,5 +10,5 @@ module.exports = {
     BadRequestError,
     NotFoundError,
     UnauthenticatedError,
-    UnauthorizedError
+    UnauthorizedError,
 };
