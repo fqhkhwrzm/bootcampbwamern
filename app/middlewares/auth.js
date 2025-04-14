@@ -26,6 +26,9 @@ const authenticateUser = async (req, res, next) => {
             id: payload.id,
         };
 
+        // untuk debug kalau gabisa akses
+        // console.log('[DEBUG] req.user:', req.user); 
+
         next();
     } catch (error) {
         next(error);
