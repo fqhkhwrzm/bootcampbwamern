@@ -11,4 +11,4 @@ let organizerSchema = Schema(
     { timestamps: true }
 );
 
-modul.exports = model('Organizer', organizerSchema);
+module.exports = model('Organizer', organizerSchema);
