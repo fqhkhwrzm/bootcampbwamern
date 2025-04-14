@@ -4,20 +4,20 @@ const { isTokenValid } = require('../utils/jwt');
 const authenticateUser = async (req, res, next) => {
     try {
         let token;
-        // cek header
+        // cek header, jadi req.headers itu didapat dari postmannya (authorization)
         const authHeader = req.headers.authorization;
 
         if (authHeader && authHeader.startsWith('Bearer')) {
-            token = authHeader.split(' ')[1];
+            token = authHeader.split(' ')[1]; //(' ') maksudnya kita ambil setelah spasi bearer
         }
 
         if (!token) {
             throw new UnauthenticatedError('Authentication invalid');
         }
 
-        const payload = isTokenValid({ token });
+        const payload = isTokenValid({ token }); //kalau tokennya dapat, dicek pake fungsi ini, valid ga tokennya
 
-        // Lampirkan user dan izinnya ke objek req
+        // kalau token valid, Lampirkan user dan izinnya ke objek req.user
         req.user = {
             email: payload.email,
             role: payload.role,
