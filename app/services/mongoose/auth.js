@@ -1,4 +1,4 @@
-const Users = require('../../api/vi/users/model');
+const Users = require('../../api/v1/users/model');
 const { BadRequestError, UnauthorizedError } = require('../../errors');
 const { createTokenUser, createJWT } = require('../../utils');
 
@@ -29,4 +29,4 @@ const signin = async (req) => {
     return token;
 };
 
-module.exports = { singin };
+module.exports = { signin };
